@@ -211,8 +211,8 @@ def determinism(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     Returns:
         determinism (float)
     """
-    if not shapes:
-        if not input:
+    if shapes is None:
+        if input is None:
             raise Exception("Missing argument `input` needed to compute shapes.")
         shapes = get_shapes(model, input)
     H_sum = 0
@@ -224,7 +224,7 @@ def determinism(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
             W = norm(W)
         H_sum += torch.sum(H(W, dim=1)).item()
         N += W.shape[0]
-    return (H_sum / N).item()
+    return (H_sum / N)
 
 
 def degeneracy(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
@@ -248,8 +248,8 @@ def degeneracy(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     Returns:
         degeneracy (float)
     """
-    if not shapes:
-        if not input:
+    if shapes is None:
+        if input is None:
             raise Exception("Missing argument `input` needed to compute shapes.")
         shapes = get_shapes(model, input)
     in_weights = torch.zeros((0,)).to(device)
@@ -293,8 +293,8 @@ def ei(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     Returns:
         ei (float)
     """
-    if not shapes:
-        if not input:
+    if shapes is None:
+        if input is None:
             raise Exception("Missing argument `input` needed to compute shapes.")
         shapes = get_shapes(model, input)
     return degeneracy(model, shapes=shapes, norm=norm, device=device) \
