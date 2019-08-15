@@ -14,7 +14,7 @@
                            |___/
 ```
 
-This package provides a collection of modules useful for characterizing and predicting the dynamics and performance of neural nets. These consist mostly of novel metrics, derived from fields like theoretical neuroscience and information theory, aimed at helping researchers to better understand and predict the performance of neural networks. The repository is meant to advance a new "Science of AI" or "Science of Deep Learning" (see [neuralnet.science](neuralnet.science)). It currently includes modules for computing:
+This package provides a collection of modules useful for characterizing and predicting the dynamics and performance of neural nets. These consist mostly of novel metrics, derived from fields like theoretical neuroscience and information theory, aimed at helping researchers to better understand and predict the performance of neural networks. The repository is meant to advance a new "Science of AI" or "Science of Deep Learning" (see [neuralnet.science](https://neuralnet.science)). It currently includes modules for computing:
 
 * [Effective Information](https://arxiv.org/abs/1907.03902)
 
