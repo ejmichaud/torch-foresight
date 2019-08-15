@@ -19,8 +19,8 @@ This package provides a collection of modules useful for characterizing and pred
 * [Effective Information](https://arxiv.org/abs/1907.03902)
 
 With the following under development:
-- [] [Gradient Noise Scale](https://openai.com/blog/science-of-ai/)
-- [] [Information Bottleneck](https://arxiv.org/abs/1503.02406)
+- [ ] [Gradient Noise Scale](https://openai.com/blog/science-of-ai/)
+- [ ] [Information Bottleneck](https://arxiv.org/abs/1503.02406)
 
 
 ## Installation
@@ -47,4 +47,6 @@ EI = ei.ei(model, input=input, device=device)
 
 Effective information may prove a useful metric in characterizing the learning (generalization) and overfitting phases of a neural network. Here is an example of how it evolves during the training of a single layer (no hidden layers) softmax network:
 
-<img align="center" src="docs/figures/single-layer-softmax.png?raw=true">
+<p align="center">
+<img width="75%" src="docs/figures/single-layer-softmax-graph.png">
+</p>
