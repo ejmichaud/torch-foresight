@@ -19,8 +19,8 @@ This package provides a collection of modules useful for characterizing and pred
 * [Effective Information](https://arxiv.org/abs/1907.03902)
 
 With the following under development:
-- [] [Gradient Noise Scale](https://openai.com/blog/science-of-ai/)
-- [] [Information Bottleneck](https://arxiv.org/abs/1503.02406)
+- [ ] [Gradient Noise Scale](https://openai.com/blog/science-of-ai/)
+- [ ] [Information Bottleneck](https://arxiv.org/abs/1503.02406)
 
 
 ## Installation
