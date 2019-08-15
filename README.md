@@ -47,4 +47,4 @@ EI = ei.ei(model, input=input, device=device)
 
 Effective information may prove a useful metric in characterizing the learning (generalization) and overfitting phases of a neural network. Here is an example of how it evolves during the training of a single layer (no hidden layers) softmax network:
 
-<img align="center" src="docs/figures/single-layer-softmax.png?raw=true">
+<img src="docs/figures/single-layer-softmax-graph.png">
