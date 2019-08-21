@@ -124,9 +124,11 @@ def conv2d_create_matrix(module, in_shape, out_shape):
         2d torch.tensor
     """
     with torch.no_grad():
-        assert not any(module.padding)
         assert len(in_shape) == 4 and len(out_shape) == 4
-        W = torch.zeros(*out_shape[1:], *in_shape[1:]) # [1:] to ignore batch size
+        p_h, p_w = module.padding
+        samples, channels, in_height, in_width = in_shape
+        W_in_shape = (samples, channels, in_height + 2*p_h, in_width + 2*p_w)
+        W = torch.zeros(*out_shape[1:], *W_in_shape[1:]) # [1:] to ignore batch size
         weight = module.weight
         s_h, s_w = module.stride
         k_h, k_w = module.kernel_size
@@ -135,6 +137,50 @@ def conv2d_create_matrix(module, in_shape, out_shape):
                 for w in range(0, out_shape[3]):
                     in_h, in_w = h*s_h, w*s_w
                     W[c_out][h][w][:, in_h:in_h+k_h, in_w:in_w+k_w] = weight[c_out]
+        ins = reduce(lambda x, y: x*y, in_shape[1:])
+        outs = reduce(lambda x, y: x*y, out_shape[1:])
+        if p_h != 0:
+            W = W[:, :, :, :, p_h:-p_h, :] # get rid of vertical padding
+        if p_w != 0:
+            W = W[:, :, :, :, :, p_w:-p_w] # get rid of horizontal padding
+        return W.reshape((outs, ins)).t()
+
+
+def avgpool2d_create_matrix(module, in_shape, out_shape):
+    r"""Returns 2d connectivity matrix of an nn.AvgPool2d layer.
+
+    This matrix has shape: (input_activations, output_activations).
+    Therefore each row contains the output weights of a neuron. To compute
+    the effective information, normalize across the rows of the returned matrix.
+
+    Args:
+        module (nn.Module): layer in feedforward network
+        in_shape (tuple): shape of module input
+        out_shape (tuple): shape of module output
+
+    Returns:
+        2d torch.tensor
+    """
+    with torch.no_grad():
+        assert module.padding == 0
+        assert len(in_shape) == 4 and len(out_shape) == 4
+        W = torch.zeros(*out_shape[1:], *in_shape[1:]) # [1:] to ignore batch size
+        if type(module.stride) is tuple:
+            assert len(module.stride) == 2, "stride tuple must have 2 elements for 2d Pool"
+            s_h, s_w = module.stride
+        else:
+            s_h = s_w = module.stride
+        if type(module.kernel_size) is tuple:
+            assert len(module.kernel_size) == 2, "kernel_size tuple must have 2 elements for 2d Pool"
+            k_h, k_w = module.kernel_size
+        else:
+            k_h = k_w = module.kernel_size
+        weight = 1 / (k_h * k_w)
+        for c_out in range(out_shape[1]):
+            for h in range(0, out_shape[2]):
+                for w in range(0, out_shape[3]):
+                    in_h, in_w = h*s_h, w*s_w
+                    W[c_out][h][w][:, in_h:in_h+k_h, in_w:in_w+k_w] = weight
         ins = reduce(lambda x, y: x*y, in_shape[1:])
         outs = reduce(lambda x, y: x*y, out_shape[1:])
         return W.reshape((outs, ins)).t()
@@ -150,7 +196,8 @@ r"""
 """
 VALID_MODULES = {
     nn.Linear: linear_create_matrix,
-    nn.Conv2d: conv2d_create_matrix
+    nn.Conv2d: conv2d_create_matrix,
+    nn.AvgPool2d: avgpool2d_create_matrix
 }
 
 

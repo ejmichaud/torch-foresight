@@ -108,6 +108,96 @@ def test_conv2d_create_matrix_2():
         ]).to(torch.float32).t()
     assert all(torch.flatten(matrix == correct_matrix))
 
+def test_conv2d_create_matrix_3():
+    m = nn.Conv2d(1, 1, 2, padding=1)
+    m.weight = nn.Parameter(torch.ones((1, 1, 2, 2)))
+    matrix = ei.conv2d_create_matrix(m, (1, 1, 3, 3), (1, 1, 4 ,4))
+    correct_matrix = torch.tensor([
+            [1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 1, 0, 0, 0, 0, 0],
+            [1, 1, 0, 1, 1, 0, 0, 0, 0],
+            [0, 1, 1, 0, 1, 1, 0, 0, 0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 0, 0],
+            [0, 0, 0, 1, 1, 0, 1, 1, 0],
+            [0, 0, 0, 0, 1, 1, 0, 1, 1],
+            [0, 0, 0, 0, 0, 1, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 1]
+        ]).to(torch.float32).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
+def test_conv2d_create_matrix_4():
+    m = nn.Conv2d(1, 1, 2, padding=1, stride=2)
+    m.weight = nn.Parameter(torch.ones((1, 1, 2, 2)))
+    matrix = ei.conv2d_create_matrix(m, (1, 1, 3, 3), (1, 1, 2, 2))
+    correct_matrix = torch.tensor([
+            [1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 1, 1]
+        ]).to(torch.float32).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
+def test_conv2d_create_matrix_5():
+    m = nn.Conv2d(1, 1, (1, 2), padding=1, stride=(2, 2))
+    m.weight = nn.Parameter(torch.ones((1, 1, 1, 2)))
+    matrix = ei.conv2d_create_matrix(m, (1, 1, 3, 3), (1, 1, 3, 2))
+    correct_matrix = torch.tensor([
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]).to(torch.float32).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
+
+##################################
+#### avgpool2d_create_matrix  ####
+##################################
+
+def test_avgpool2d_create_matrix_0():
+    m = nn.AvgPool2d(2)
+    matrix = ei.avgpool2d_create_matrix(m, (1, 1, 4, 4), (1, 1, 2, 2))
+    correct_matrix = torch.tensor([
+            [0.25, 0.25, 0, 0, 0.25, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0.25, 0.25, 0, 0, 0.25, 0.25, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0.25, 0, 0, 0.25, 0.25, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0.25, 0, 0, 0.25, 0.25]
+        ]).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
+def test_avgpool2d_create_matrix_1():
+    m = nn.AvgPool2d(2, stride=1)
+    matrix = ei.avgpool2d_create_matrix(m, (1, 1, 3, 3), (1, 1, 2, 2))
+    correct_matrix = torch.tensor([
+            [0.25, 0.25, 0, 0.25, 0.25, 0, 0, 0, 0],
+            [0, 0.25, 0.25, 0, 0.25, 0.25, 0, 0, 0],
+            [0, 0, 0, 0.25, 0.25, 0, 0.25, 0.25, 0],
+            [0, 0, 0, 0, 0.25, 0.25, 0, 0.25, 0.25]
+        ]).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
+def test_avgpool2d_create_matrix_2():
+    m = nn.AvgPool2d((1, 2), stride=1)
+    matrix = ei.avgpool2d_create_matrix(m, (1, 1, 3, 3), (1, 1, 3, 2))
+    correct_matrix = torch.tensor([
+            [0.5, 0.5, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0.5, 0.5, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0.5, 0.5, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0.5, 0.5, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0.5, 0.5, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0.5, 0.5]
+        ]).t()
+    assert all(torch.flatten(matrix == correct_matrix))
+
 
 ##################################
 ####       determinism        ####
