@@ -3,6 +3,9 @@ channels:
   - pytorch
   - defaults
 dependencies:
+  - python=3.6.9
+  - pip=19.2.2
+  - wheel=0.33.4
   - pytorch
   - torchvision
   - pip:
