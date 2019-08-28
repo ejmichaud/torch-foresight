@@ -26,6 +26,6 @@ Above, we see how the effective information of a single-layer (no hidden layers)
 Code Documentation
 ^^^^^^^^^^^^^^^^^^
 
-.. automodule:: foresight.ei
+.. autoapimodule:: foresight.ei
    :members: ei, determinism, degeneracy, get_shapes, H, lin_norm, soft_norm
 

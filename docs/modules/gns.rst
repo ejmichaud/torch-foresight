@@ -15,5 +15,5 @@ The `Gradient Noise Scale <https://arxiv.org/abs/1812.06162>`_ is a statistical 
 Code Documentation
 ^^^^^^^^^^^^^^^^^^
 
-.. automodule:: foresight.gns
+.. autoapimodule:: foresight.gns
    :members:

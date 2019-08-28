@@ -14,7 +14,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 import sphinx_rtd_theme
-import foresight
+# import foresight
 # -- Project information -----------------------------------------------------
 
 project = 'torch-foresight'
@@ -32,9 +32,13 @@ extensions = [
 	'sphinx_rtd_theme',
 	'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autodoc',
+    'autoapi.extension',
     'sphinx.ext.napoleon'
 ]
+
+autoapi_dirs = ['../foresight']
+autoapi_add_toctree_entry = False
+autoapi_generate_api_docs = False
 
 # imgmath settings
 imgmath_image_format = 'svg'

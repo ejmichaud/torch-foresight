@@ -16,7 +16,7 @@ With the following under development:
 * Information Bottleneck (`paper <https://arxiv.org/abs/1503.02406>`_)
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Modules
 
    modules/ei
