@@ -13,6 +13,7 @@
                             __/ |
                            |___/
 ```
+[![Documentation Status](https://readthedocs.org/projects/torch-foresight/badge/?version=latest)](https://torch-foresight.readthedocs.io/en/latest/?badge=latest)
 
 This package provides a collection of modules useful for characterizing and predicting the dynamics and performance of neural nets. These consist mostly of novel metrics, derived from fields like theoretical neuroscience and information theory, aimed at helping researchers to better understand and predict the performance of neural networks. The repository is meant to advance a new "Science of AI" or "Science of Deep Learning" (see [neuralnet.science](https://neuralnet.science)). It currently includes modules for computing:
 
@@ -22,6 +23,7 @@ With the following under development:
 - [ ] [Gradient Noise Scale](https://openai.com/blog/science-of-ai/)
 - [ ] [Information Bottleneck](https://arxiv.org/abs/1503.02406)
 
+**[Check out the comprehensive documentation (click me!)](https://torch-foresight.readthedocs.io)**
 
 ## Installation
 
