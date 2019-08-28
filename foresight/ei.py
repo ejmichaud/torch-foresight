@@ -241,7 +241,10 @@ def determinism(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     r"""Compute the determinism of neural network `model`.
 
     Determinism is the average entropy of the outweights of each node (neuron)
-    in the graph: $\langle H(W^\text{out}) \rangle$.
+    in the graph: 
+
+    .. math::
+        \text{determinism} = \langle H(W^\text{out}) \rangle
 
     If a `shapes` argument is provided, then `input` will not be used and
     need not be provided. If no `shapes` argument is provided, then an 
@@ -278,7 +281,10 @@ def degeneracy(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     r"""Compute the degeneracy of neural network `model`.
 
     Degeneracy is the entropy of the cumulative, normalized in-weights for each
-    neuron in the graph: $H( \langle W^\text{out} \rangle )$.
+    neuron in the graph: 
+
+    .. math::
+        H( \langle W^\text{out} \rangle )
 
     If a `shapes` argument is provided, then `input` will not be used and
     need not be provided. If no `shapes` argument is provided, then an 
@@ -319,7 +325,13 @@ def ei(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     is used in theoretical neuroscience to study emergent structure
     in networks. It is defined by:
 
-                    EI = determinism - degeneracy
+    .. math::
+        \text{EI} = \text{determinism} - \text{degeneracy}
+
+    explicitly:
+
+    .. math::
+        \text{EI} = \langle H(W^\text{out}) \rangle - H( \langle W^\text{out} \rangle )
 
     Which is equal to the average KL-divergence between the normalized
     out-weights of the neurons and the distribution of in-weights across
