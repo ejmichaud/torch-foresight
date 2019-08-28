@@ -128,7 +128,7 @@ def conv2d_create_matrix(module, in_shape, out_shape):
         p_h, p_w = module.padding
         samples, channels, in_height, in_width = in_shape
         W_in_shape = (samples, channels, in_height + 2*p_h, in_width + 2*p_w)
-        W = torch.zeros(*out_shape[1:], *W_in_shape[1:]) # [1:] to ignore batch size
+        W = torch.zeros(out_shape[1:] + W_in_shape[1:]) # [1:] to ignore batch size
         weight = module.weight
         s_h, s_w = module.stride
         k_h, k_w = module.kernel_size
@@ -164,7 +164,7 @@ def avgpool2d_create_matrix(module, in_shape, out_shape):
     with torch.no_grad():
         assert module.padding == 0
         assert len(in_shape) == 4 and len(out_shape) == 4
-        W = torch.zeros(*out_shape[1:], *in_shape[1:]) # [1:] to ignore batch size
+        W = torch.zeros(out_shape[1:] + in_shape[1:]) # [1:] to ignore batch size
         if type(module.stride) is tuple:
             assert len(module.stride) == 2, "stride tuple must have 2 elements for 2d Pool"
             s_h, s_w = module.stride
