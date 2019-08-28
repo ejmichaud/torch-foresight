@@ -15,7 +15,7 @@
 ```
 [![Documentation Status](https://readthedocs.org/projects/torch-foresight/badge/?version=latest)](https://torch-foresight.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/ejmichaud/torch-foresight.svg?branch=master)](https://travis-ci.org/ejmichaud/torch-foresight)
 
-This package provides a collection of modules useful for characterizing and predicting the dynamics and performance of neural nets. These consist mostly of novel metrics, derived from fields like theoretical neuroscience and information theory, aimed at helping researchers to better understand and predict the performance of neural networks. The repository is meant to advance a new "Science of AI" or "Science of Deep Learning" (see [neuralnet.science](https://neuralnet.science)). It currently includes modules for computing:
+This package provides a collection of modules useful for characterizing and predicting the dynamics and performance of neural nets. These consist mostly of novel metrics, derived from fields like theoretical neuroscience and information theory, aimed at helping researchers to better understand how neural networks work. The repository is meant to advance a new "Science of AI" or "Science of Deep Learning" (see [neuralnet.science](https://neuralnet.science)). It currently includes modules for computing:
 
 * [Effective Information](https://arxiv.org/abs/1907.03902)
 
@@ -37,7 +37,7 @@ If you don't have pytorch, installing it with anaconda is recommended. An `envir
 ```
 conda env create -f environment.yml
 ```
-This will create a conda environment called "foresight", and install pytorch and then this package. It can then be activated with `conda activate foresight`. A requirements.txt file has also been provided, if you'd like to use `pip install -r requirements`, which will install pytorch via pip. 
+This will create a conda environment called "foresight", and install pytorch and then this package. It can then be activated with `conda activate foresight`. A requirements.txt file has also been provided, if you'd like to use `pip install -r requirements.txt`, which will install pytorch via pip. 
 
 ## Usage:
 
