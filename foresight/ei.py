@@ -284,7 +284,7 @@ def degeneracy(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
     neuron in the graph: 
 
     .. math::
-        H( \langle W^\text{out} \rangle )
+        \text{degeneracy} = H( \langle W^\text{out} \rangle )
 
     If a `shapes` argument is provided, then `input` will not be used and
     need not be provided. If no `shapes` argument is provided, then an 
