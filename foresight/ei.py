@@ -306,14 +306,13 @@ def degeneracy(model, input=None, shapes=None, norm=lin_norm, device='cpu'):
             raise Exception("Missing argument `input` needed to compute shapes.")
         shapes = get_shapes(model, input)
     in_weights = torch.zeros((0,)).to(device)
-    total_weight = 0
     for module, (in_shape, out_shape) in shapes.items():
         create_matrix = VALID_MODULES[type(module)]
         W = create_matrix(module, in_shape, out_shape)
         if norm:
             W = norm(W)
         in_weights = torch.cat((in_weights, torch.sum(W, dim=0)))
-        total_weight += torch.sum(W).item()
+    total_weight = torch.sum(in_weights).item()
     return H(in_weights / total_weight).item()
 
 
