@@ -8,7 +8,7 @@ Theory
 `Effective Information <https://arxiv.org/abs/1907.03902>`_ captures something about the information contained in the causal structure of a network (realized as a causal diagram). It is defined as:
 
 .. math::
-	\text{EI} = \langle H(W^\text{out}) \rangle - H( \langle W^\text{out} \rangle )
+	 H( \langle W^\text{out} \rangle ) - \text{EI} = \langle H(W^\text{out}) \rangle
 
 or equivalently:
 
